@@ -31,6 +31,7 @@ ADD CONSTRAINT fk_pro_department
 ALTER TABLE session_ ADD CONSTRAINT pk_session_ PRIMARY KEY(session_id);
 ALTER TABLE session_ ADD CONSTRAINT session_desc_unique UNIQUE(session_desc);
 ALTER TABLE session_ ADD CONSTRAINT academic_year_unique UNIQUE(academic_year);
+
 ALTER TABLE session_
 ADD CONSTRAINT fk_sec_program
   FOREIGN KEY (program_id)
