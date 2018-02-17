@@ -11,6 +11,7 @@ ALTER TABLE department ADD CONSTRAINT pk_department PRIMARY KEY(department_id);
 ALTER TABLE department ADD CONSTRAINT department_name_unique UNIQUE(department_name);
 ALTER TABLE department ADD CONSTRAINT department_abbr_unique UNIQUE(department_abbr);
 ALTER TABLE department ADD CONSTRAINT department_code_unique UNIQUE(department_code);
+
 ALTER TABLE department
 ADD CONSTRAINT fk_dept_faculty
   FOREIGN KEY (faculty_id)
