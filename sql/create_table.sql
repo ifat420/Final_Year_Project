@@ -31,7 +31,7 @@ CREATE TABLE semester(
 
 CREATE TABLE residential_hall(
   residential_id        NUMBER(10)  NOT NULL,
-  residential_type      ENUM('male','female'),
+  residential_type      VARCHAR(10) NOT NULL,
   residential_name      VARCHAR(40) NOT NULL
 );
 

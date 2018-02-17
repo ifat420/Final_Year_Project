@@ -26,10 +26,9 @@ ALTER TABLE semester ADD CONSTRAINT fk_semester PRIMARY KEY(semester_id);
 ALTER TABLE residential_hall ADD CONSTRAINT fk_residential PRIMARY KEY(residential_id);
 ALTER TABLE residential_hall ADD CONSTRAINT residential_name_unique UNIQUE(residential_name);
 
-/* indexes for TABLE student */
-ALTER TABLE student ADD CONSTRAINT fk_student PRIMARY KEY(student_roll);
-ALTER TABLE student ADD CONSTRAINT registration_id_unique UNIQUE(registration_id);
-ALTER TABLE student ADD CONSTRAINT academic_year_unique UNIQUE(academic_year);
+/* indexes for TABLE student_info */
+ALTER TABLE student_info ADD CONSTRAINT fk_student PRIMARY KEY(student_roll);
+ALTER TABLE student_info ADD CONSTRAINT registration_id_unique UNIQUE(registration_id);
 
 /* indexes for TABLE courses */
 ALTER TABLE courses ADD CONSTRAINT fk_course PRIMARY KEY(course_id);
