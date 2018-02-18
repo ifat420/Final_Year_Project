@@ -24,13 +24,13 @@ CREATE TABLE session_(
   session_id            VARCHAR(10)   NOT NULL,
   session_id_origin     VARCHAR(10),
   session_desc          VARCHAR(60)  NOT NULL,
-  academic_year         DATE   NOT NULL,
+  academic_year         VARCHAR(10)   NOT NULL,
   program_id            VARCHAR(10)
 );
 
 CREATE TABLE semester(
   semester_id VARCHAR(10)   NOT NULL,
-  year        DATE   NOT NULL,
+  year        VARCHAR(10)   NOT NULL,
   sem         FLOAT(5)    NOT NULL
 );
 
