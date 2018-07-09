@@ -1,0 +1,16 @@
+DROP TABLE faculty;
+DROP TABLE department;
+DROP TABLE program;
+DROP TABLE session_;
+DROP TABLE semester;
+DROP TABLE residential_hall;
+DROP TABLE student_info;
+DROP TABLE courses;
+DROP TABLE course_assign;
+DROP TABLE result_register;
+DROP TABLE marks_theory;
+DROP TABLE marks_lab;
+DROP TABLE marks_viva;
+DROP TABLE marks_thesis_or_project;
+DROP TABLE teacher;
+DROP TABLE grade_scale;

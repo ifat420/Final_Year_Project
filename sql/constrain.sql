@@ -19,9 +19,6 @@ ADD CONSTRAINT fk_dept_faculty
 
 /* indexes for TABLE program */
 ALTER TABLE program ADD CONSTRAINT pk_program PRIMARY KEY(program_id);
-ALTER TABLE program ADD CONSTRAINT program_name_unique UNIQUE(program_name);
-ALTER TABLE program ADD CONSTRAINT program_abbr_unique UNIQUE(program_abbr);
-ALTER TABLE program ADD CONSTRAINT program_degree_unique UNIQUE(degree);
 ALTER TABLE program
 ADD CONSTRAINT fk_pro_department
   FOREIGN KEY (department_id)
@@ -29,8 +26,7 @@ ADD CONSTRAINT fk_pro_department
 
 /* indexes for TABLE session_ */
 ALTER TABLE session_ ADD CONSTRAINT pk_session_ PRIMARY KEY(session_id);
-ALTER TABLE session_ ADD CONSTRAINT session_desc_unique UNIQUE(session_desc);
-ALTER TABLE session_ ADD CONSTRAINT academic_year_unique UNIQUE(academic_year);
+
 
 ALTER TABLE session_
 ADD CONSTRAINT fk_sec_program
@@ -54,6 +50,11 @@ ADD CONSTRAINT fk_stu_session_
   REFERENCES session_(session_id);
   
 ALTER TABLE student_info
+ADD CONSTRAINT fk_stu_session_origin_
+  FOREIGN KEY (session_id_origin)
+  REFERENCES session_(session_id);
+  
+ALTER TABLE student_info
 ADD CONSTRAINT fk_stu_residential_hall
   FOREIGN KEY (residential_id)
   REFERENCES residential_hall(residential_id);
@@ -61,8 +62,6 @@ ADD CONSTRAINT fk_stu_residential_hall
 
 /* indexes for TABLE courses */
 ALTER TABLE courses ADD CONSTRAINT pk_course PRIMARY KEY(course_id);
-ALTER TABLE courses ADD CONSTRAINT course_code_unique UNIQUE(course_code);
-ALTER TABLE courses ADD CONSTRAINT course_title_unique UNIQUE(course_title);
 
 ALTER TABLE courses
 ADD CONSTRAINT fk_cor_semester
@@ -80,18 +79,27 @@ ADD CONSTRAINT fk_cor_teacher
   REFERENCES teacher(teacher_id);
 
 
-/* indexes for TABLE promotion */
-ALTER TABLE promotion ADD CONSTRAINT fk_promotion PRIMARY KEY(promotion_id);
+/* indexes for TABLE course_assign */
+ALTER TABLE course_assign ADD CONSTRAINT fk_promotion PRIMARY KEY(course_assign_id);
 
-ALTER TABLE promotion
-ADD CONSTRAINT fk_pro_semester
+ALTER TABLE course_assign
+ADD CONSTRAINT fk_ca_semester
   FOREIGN KEY (semester_id)
   REFERENCES semester(semester_id);
   
-ALTER TABLE promotion
-ADD CONSTRAINT fk_pro_session_
+ALTER TABLE course_assign
+ADD CONSTRAINT fk_ca_session_
   FOREIGN KEY (session_id)
   REFERENCES session_(session_id);
+
+/* index for Table result_register */
+
+ALTER TABLE result_register ADD CONSTRAINT fk_result_reg PRIMARY KEY(result_register_id);
+
+ALTER TABLE result_register
+ADD CONSTRAINT fk_rr_ca_
+  FOREIGN KEY (course_assign_id)
+  REFERENCES course_assign(course_assign_id);
   
 /* indexes for TABLE marks_theory */
 ALTER TABLE marks_theory
@@ -103,6 +111,11 @@ ALTER TABLE marks_theory
 ADD CONSTRAINT fk_mt_student_info
   FOREIGN KEY (student_roll)
   REFERENCES student_info(student_roll);
+
+ALTER TABLE marks_theory
+ADD CONSTRAINT fk_mt_cs
+  FOREIGN KEY (course_assign_id)
+  REFERENCES course_assign(course_assign_id);
   
 /* indexes for TABLE marks_lab */
 ALTER TABLE marks_lab
@@ -115,6 +128,11 @@ ADD CONSTRAINT fk_ml_student_info
   FOREIGN KEY (student_roll)
   REFERENCES student_info(student_roll);
   
+ALTER TABLE marks_lab
+ADD CONSTRAINT fk_ml_cs
+  FOREIGN KEY (course_assign_id)
+  REFERENCES course_assign(course_assign_id);
+  
 /* indexes for TABLE marks_viva */
 ALTER TABLE marks_viva
 ADD CONSTRAINT fk_mv_course
@@ -126,7 +144,12 @@ ADD CONSTRAINT fk_mv_student_info
   FOREIGN KEY (student_roll)
   REFERENCES student_info(student_roll);
   
-/* indexes for TABLE marks_viva */
+ALTER TABLE marks_viva
+ADD CONSTRAINT fk_mv_cs
+  FOREIGN KEY (course_assign_id)
+  REFERENCES course_assign(course_assign_id);
+  
+/* indexes for TABLE marks_thesis_or_project */
 ALTER TABLE marks_thesis_or_project
 ADD CONSTRAINT fk_tp_course
   FOREIGN KEY (course_id)
@@ -136,4 +159,9 @@ ALTER TABLE marks_thesis_or_project
 ADD CONSTRAINT fk_tp_student_info
   FOREIGN KEY (student_roll)
   REFERENCES student_info(student_roll);
+  
+ALTER TABLE marks_thesis_or_project
+ADD CONSTRAINT fk_mt_or_pro_cs
+  FOREIGN KEY (course_assign_id)
+  REFERENCES course_assign(course_assign_id);
 
