@@ -542,11 +542,42 @@ BEGIN
 END;
 /
 --insert course_assign
-CREATE OR REPLACE PROCEDURE insert_course_assign_p
-(sem_id IN VARCHAR, sec_id IN VARCHAR,msg OUT VARCHAR)
+create or replace PROCEDURE insert_course_assign_p
+(dept_nm IN VARCHAR, prog_nm IN VARCHAR, sec_d IN VARCHAR, sem_id IN VARCHAR ,msg OUT VARCHAR)
 IS
   cs_as_id COURSE_ASSIGN.COURSE_ASSIGN_ID%TYPE;
+  sec_id  SESSION_.SESSION_ID%TYPE;
+  dept_id DEPARTMENT.DEPARTMENT_ID%TYPE;
+  prog_id PROGRAM.PROGRAM_ID%TYPE;
+  
 BEGIN
+  SELECT 
+    department_id INTO dept_id
+  FROM 
+    department
+  WHERE 
+    department_name = UPPER(dept_nm);
+
+  
+  SELECT 
+    program_id INTO prog_id
+  FROM 
+    program
+  WHERE 
+    program_abbr = UPPER(prog_nm)
+  AND
+    department_id = dept_id;
+    
+    
+  SELECT 
+    session_id INTO sec_id
+  FROM 
+    session_
+  WHERE 
+    session_desc = UPPER(sec_d)
+  AND
+    program_id = prog_id;
+
   cs_as_id:= crs_ass_id_generator_f();
   INSERT INTO course_assign VALUES(cs_as_id,sem_id,sec_id);
   
